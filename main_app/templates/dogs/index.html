@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<link 
+  rel="stylesheet"
+  type="text/css"
+  href="{% static 'css/dogs/dog-index.css' %}"
+/>
+{% endblock %}
+
+{% block content %}
+
+<section class="page-header">
+  <h1>Dog List</h1>
+  <img src="{% static 'images/Anna.jpeg' %}" alt="A cool cat" />
+  <img src="{% static 'images/Chance.jpeg' %}" alt="A happy cat" />
+  <img src="{% static 'images/CookieMonster.jpeg' %}" alt="A dog in a teacup" />
+  <img src="{% static 'images/Jackson.jpeg' %}" alt="A dog in a box" />
+  <img src="{% static 'images/Petunia.jpeg' %}" alt="A dog in a box" />
+</section>
+
+<section class="card-container">
+  {% for dog in dogs %}
+    <div class="card">
+      <div class="card-content">
+        <a href="/dogs/{{ dog.id }}">
+          <div class="card-img-container">
+          </div>
+          <h2 class="card-title">{{ dog.name }}</h2>
+          {% if dog.age > 0 %}
+            <p>A {{ dog.age }} year old {{ dog.breed }}</p>
+          {% else %}
+            <p>A {{ dog.breed }} puppy.</p>
+          {% endif %}
+          <p><small>{{ dog.description }}</small></p>
+        </div>
+      </a>
+    </div>
+  {% endfor %}
+</section>
+
+{% endblock %}
