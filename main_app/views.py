@@ -16,12 +16,13 @@ def dog_index(request):
 
 def dog_detail(request, dog_id):
   dog = Dog.objects.get(id=dog_id)
+  toys_dog_doesnt_have = Toy.objects.exclude(id__in = dog.toys.all().values_list)
   feeding_form = FeedingForm()
-  return render(request, 'dogs/detail.html', { 'dog': dog, 'feeding_form':feeding_form })
+  return render(request, 'dogs/detail.html', { 'dog': dog, 'feeding_form':feeding_form, 'toys': toys_dog_doesnt_have })
 
 class DogCreate(CreateView):
   model = Dog
-  fields = '__all__'
+  fields = ['name', 'breed', 'description', 'age']
   success_url = '/dogs/'
 
 class DogUpdate(UpdateView):
